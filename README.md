@@ -1,0 +1,2 @@
+# DeMus
+Decentralized Music Application
