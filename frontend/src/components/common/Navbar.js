@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
+  console.log('Navbar rendered');
   return (
     <AppBar position="static">
       <Toolbar>

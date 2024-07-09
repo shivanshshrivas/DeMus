@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Typography, Button } from '@mui/material';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   heroContainer: {
@@ -25,10 +25,10 @@ function HeroSection() {
 
   return (
     <Container className={classes.heroContainer}>
-      <Typography variant="h2" component="h1">
+      <Typography variant="h2" component="h1" style={{color: 'black'}}>
         Empower Your Music Journey
       </Typography>
-      <Typography variant="h5" component="p" style={{ marginTop: '20px' }}>
+      <Typography variant="h5" component="p" style={{ marginTop: '20px', color:'gray'}}>
         Discover, Upload, and Get Recognized
       </Typography>
       <Button variant="contained" color="primary" className={classes.heroButton}>
