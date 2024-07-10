@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../services/auth';
-import { useAuth } from '../../contexts/AuthContext';
+import { Container, TextField, Button, Typography, Alert } from '@mui/material';
 
 function Login() {
   const emailRef = useRef();
@@ -18,25 +18,46 @@ function Login() {
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       navigate('/');
-    } catch {
-      setError('Failed to log in');
+    } catch (e) {
+      setError('Failed to log in: ' + e.message);
     }
 
     setLoading(false);
   }
 
   return (
-    <div>
-      <h2>Log In</h2>
-      {error && <p>{error}</p>}
+    <Container maxWidth="sm">
+      <Typography variant="h4" gutterBottom>Log In</Typography>
+      {error && <Alert severity="error">{error}</Alert>}
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input type="email" ref={emailRef} required />
-        <label>Password</label>
-        <input type="password" ref={passwordRef} required />
-        <button disabled={loading} type="submit">Log In</button>
+        <TextField
+          label="Email"
+          type="email"
+          inputRef={emailRef}
+          fullWidth
+          required
+          margin="normal"
+        />
+        <TextField
+          label="Password"
+          type="password"
+          inputRef={passwordRef}
+          fullWidth
+          required
+          margin="normal"
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={loading}
+          fullWidth
+          style={{ marginTop: '16px' }}
+        >
+          Log In
+        </Button>
       </form>
-    </div>
+    </Container>
   );
 }
 

@@ -6,25 +6,26 @@ import Discover from './components/Discover/Discover';
 import Upload from './components/Upload/Upload';
 import MyMusic from './components/MyMusic/MyMusic';
 import Profile from './components/Profile/Profile';
-import Login from './components/Auth/Login';
-import Signup from './components/Auth/Signup';
+import AuthPage from './components/Auth/AuthPage';  // New combined Auth page
 import PrivateRoute from './routes/PrivateRoute';
-import {AuthProvider} from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { WalletProvider } from './contexts/WalletContext';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/discover" element={<Discover />} />
-          <Route path="/upload" element={<PrivateRoute><Upload /></PrivateRoute>} />
-          <Route path="/my-music" element={<PrivateRoute><MyMusic /></PrivateRoute>} />
-          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
+        <WalletProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/discover" element={<PrivateRoute><Discover /></PrivateRoute>} />
+            <Route path="/upload" element={<PrivateRoute><Upload /></PrivateRoute>} />
+            <Route path="/my-music" element={<PrivateRoute><MyMusic /></PrivateRoute>} />
+            <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+          </Routes>
+        </WalletProvider>
       </AuthProvider>
     </Router>
   );

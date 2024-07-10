@@ -31,7 +31,7 @@ function HeroSection() {
       <Typography variant="h5" component="p" style={{ marginTop: '20px', color:'gray'}}>
         Discover, Upload, and Get Recognized
       </Typography>
-      <Button variant="contained" color="primary" className={classes.heroButton}>
+      <Button variant="contained" color="primary" className={classes.heroButton} onClick={handleGetStarted}>
         Get Started
       </Button>
     </Container>

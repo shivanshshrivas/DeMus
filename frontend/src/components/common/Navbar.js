@@ -1,32 +1,45 @@
 import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppBar, Toolbar, Button, Typography, IconButton } from '@mui/material';
+import { useAuth } from '../../contexts/AuthContext';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 function Navbar() {
-  console.log('Navbar rendered');
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Failed to log out:', error);
+    }
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" style={{ flexGrow: 1 }}>
+        <Typography variant="h6" component={Link} to="/" style={{ flexGrow: 1, color: 'inherit', textDecoration: 'none' }}>
           DeMus
         </Typography>
-        <Button color="inherit" component={Link} to="/">Home</Button>
-        <Button color="inherit" component={Link} to="/discover">Discover</Button>
-        <Button color="inherit" component={Link} to="/upload">Upload</Button>
-        <Button color="inherit" component={Link} to="/my-music">My Music</Button>
-        <Button color="inherit" component={Link} to="/profile">Profile</Button>
+        {currentUser ? (
+          <>
+            <Button component={Link} to="/discover" color="inherit">Discover</Button>
+            <Button component={Link} to="/upload" color="inherit">Upload</Button>
+            <Button component={Link} to="/my-music" color="inherit">My Music</Button>
+            <IconButton color="inherit" component={Link} to="/profile">
+              <AccountCircle />
+              <Typography variant="body1" style={{ marginLeft: '8px' }}>{currentUser.displayName || 'Profile'}</Typography>
+            </IconButton>
+            <Button color="inherit" onClick={handleLogout}>Logout</Button>
+          </>
+        ) : (
+          <Button component={Link} to="/home" color="inherit">Home</Button>
+        )}
       </Toolbar>
     </AppBar>
   );
 }
 
 export default Navbar;
-
