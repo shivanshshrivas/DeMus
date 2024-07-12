@@ -2,10 +2,12 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, Button, Typography, IconButton } from '@mui/material';
 import { useAuth } from '../../contexts/AuthContext';
+import { useWallet } from '../../contexts/WalletContext';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 function Navbar() {
   const { currentUser, logout } = useAuth();
+  const { walletAddress } = useWallet();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -25,17 +27,21 @@ function Navbar() {
         </Typography>
         {currentUser ? (
           <>
-            <Button component={Link} to="/discover" color="inherit">Discover</Button>
-            <Button component={Link} to="/upload" color="inherit">Upload</Button>
-            <Button component={Link} to="/my-music" color="inherit">My Music</Button>
+            {walletAddress && (
+              <>
+                <Button component={Link} to="/discover" color="inherit">Discover</Button>
+                <Button component={Link} to="/upload" color="inherit">Upload</Button>
+                <Button component={Link} to="/my-music" color="inherit">My Music</Button>
+              </>
+            )}
             <IconButton color="inherit" component={Link} to="/profile">
               <AccountCircle />
-              <Typography variant="body1" style={{ marginLeft: '8px' }}>{currentUser.displayName || 'Profile'}</Typography>
+              <Typography variant="body1" style={{ marginLeft: '8px' }}>Profile</Typography>
             </IconButton>
             <Button color="inherit" onClick={handleLogout}>Logout</Button>
           </>
         ) : (
-          <Button component={Link} to="/home" color="inherit">Home</Button>
+          <Button component={Link} to="/auth" color="inherit">Login</Button>
         )}
       </Toolbar>
     </AppBar>

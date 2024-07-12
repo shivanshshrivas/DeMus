@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../services/auth';
-import { connectWallet } from '../../services/wallet';
 import { Container, TextField, Button, Typography, Alert } from '@mui/material';
 
 function Signup() {
@@ -23,18 +22,9 @@ function Signup() {
     try {
       setError('');
       setLoading(true);
-      console.log('Attempting to sign up...');
-      const walletAddress = await connectWallet();
-      if (!walletAddress) {
-        setError('MetaMask connection is required');
-        setLoading(false);
-        return;
-      }
-      await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value, walletAddress);
-      console.log('Signup successful');
-      navigate('/');
+      await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value);
+      navigate('/profile');
     } catch (e) {
-      console.error('Signup failed', e);
       setError('Failed to create an account: ' + e.message);
     }
 

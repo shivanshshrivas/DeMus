@@ -1,13 +1,21 @@
 import React from 'react';
-import HeroSection from './HeroSection';
-import Footer from '../common/Footer';
+import { useNavigate } from 'react-router-dom';
+import { Button, Container, Typography } from '@mui/material';
 
 function Home() {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/auth');
+  };
+
   return (
-    <div>
-      <HeroSection />
-      <Footer />
-    </div>
+    <Container>
+      <Typography variant="h2" gutterBottom>Welcome to DeMus</Typography>
+      <Button variant="contained" color="primary" onClick={handleGetStarted}>
+        Get Started
+      </Button>
+    </Container>
   );
 }
 

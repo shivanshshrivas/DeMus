@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
 const AuthContext = createContext();
@@ -19,8 +19,12 @@ export function AuthProvider({ children }) {
       if (user) {
         const docRef = doc(db, 'users', user.uid);
         const docSnap = await getDoc(docRef);
+        console.log('docSnap:', docSnap);
         if (docSnap.exists()) {
+          console.log('User data from Firestore:', docSnap.data());
           setUserData(docSnap.data());
+        } else {
+          console.log('No such document!');
         }
       } else {
         setUserData(null);
@@ -30,9 +34,17 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
+  const logout = async () => {
+    await signOut(auth);
+    setCurrentUser(null);
+    console.log('User logged out');
+    setUserData(null);
+  };
+
   const value = {
     currentUser,
-    userData
+    userData,
+    logout,
   };
 
   return (

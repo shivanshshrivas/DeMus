@@ -1,26 +1,23 @@
-import React from "react";
-import { Container, Typography, Button } from "@mui/material";
-import Login from "./Login";
-import Signup from "./Signup";
+import React, { useState } from 'react';
+import { Container, Button, Typography } from '@mui/material';
+import Login from './Login';
+import Signup from './Signup';
 
 function AuthPage() {
-    const [isLogin, setIsLogin] = React.useState(true);
+  const [isLogin, setIsLogin] = useState(true);
 
-    const toggleAuth = () => {
-        setIsLogin((prev) => !prev);
-    };
+  const toggleAuthMode = () => {
+    setIsLogin((prev) => !prev);
+  };
 
-    return (
-        <Container maxWidth="sm">
-            <Typography variant="h4" gutterBottom>
-                {isLogin ? "Login" : "Sign Up"}
-            </Typography>
-            {isLogin ? <Login /> : <Signup />}
-            <Button onClick={toggleAuth}>
-                {isLogin ? "Don't have an account? Sign up" : "Already have an account? Log in"}
-            </Button>
-        </Container>
-    );
+  return (
+    <Container maxWidth="sm">
+      {isLogin ? <Login /> : <Signup />}
+      <Button onClick={toggleAuthMode} style={{ marginTop: '16px' }}>
+        {isLogin ? 'Don\'t have an account? Sign Up' : 'Already have an account? Log In'}
+      </Button>
+    </Container>
+  );
 }
 
 export default AuthPage;

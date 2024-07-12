@@ -6,7 +6,7 @@ import Discover from './components/Discover/Discover';
 import Upload from './components/Upload/Upload';
 import MyMusic from './components/MyMusic/MyMusic';
 import Profile from './components/Profile/Profile';
-import AuthPage from './components/Auth/AuthPage';  // New combined Auth page
+import AuthPage from './components/Auth/AuthPage'; // Updated to use AuthPage
 import PrivateRoute from './routes/PrivateRoute';
 import { AuthProvider } from './contexts/AuthContext';
 import { WalletProvider } from './contexts/WalletContext';
