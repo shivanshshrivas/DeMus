@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../services/auth';
-import { Container, TextField, Button, Typography, Alert } from '@mui/material';
+import { useAuth } from '../../contexts/AuthContext';
+import { Container, TextField, Button, Typography, Alert, CircularProgress } from '@mui/material';
 
 function Signup() {
   const emailRef = useRef();
@@ -11,6 +12,13 @@ function Signup() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/profile');
+    }
+  }, [currentUser, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -23,7 +31,6 @@ function Signup() {
       setError('');
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value);
-      navigate('/profile');
     } catch (e) {
       setError('Failed to create an account: ' + e.message);
     }
@@ -75,7 +82,7 @@ function Signup() {
           fullWidth
           style={{ marginTop: '16px' }}
         >
-          Sign Up
+          {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign Up'}
         </Button>
       </form>
     </Container>

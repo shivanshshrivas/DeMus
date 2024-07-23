@@ -1,25 +1,28 @@
 import React from 'react';
-import { Card, CardContent, Typography, CardMedia } from '@mui/material';
+import { Card, CardContent, Typography, CardActionArea, CardMedia } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-function MusicCard({ title, artist }) {
+const MusicCard = ({ track }) => {
   return (
     <Card>
-      <CardMedia
-        component="img"
-        height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
-        alt={title}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {artist}
-        </Typography>
-      </CardContent>
+      <CardActionArea component={Link} to={`/track/${track.fingerprint}`}>
+        <CardMedia
+          component="img"
+          height="140"
+          image={require('../../assets/images/music.png')}  // Static image
+          alt={track.title}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {track.title}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {track.artist}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
-}
+};
 
 export default MusicCard;

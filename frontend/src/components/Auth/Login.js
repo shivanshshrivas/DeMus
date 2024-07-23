@@ -1,14 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../services/auth';
 import { Container, TextField, Button, Typography, Alert } from '@mui/material';
+import { useAuth } from '../../contexts/AuthContext';
 
 function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/profile');
+    }
+  }, [currentUser, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();

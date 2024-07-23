@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/common/Navbar';
 import Home from './components/Home/Home';
 import Discover from './components/Discover/Discover';
+import Player from './components/Player/Player';
 import Upload from './components/Upload/Upload';
 import MyMusic from './components/MyMusic/MyMusic';
 import Profile from './components/Profile/Profile';
@@ -23,7 +24,8 @@ function App() {
             <Route path="/discover" element={<PrivateRoute><Discover /></PrivateRoute>} />
             <Route path="/upload" element={<PrivateRoute><Upload /></PrivateRoute>} />
             <Route path="/my-music" element={<PrivateRoute><MyMusic /></PrivateRoute>} />
-            <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/track/:fingerprint" element={<Player/>} />
           </Routes>
         </WalletProvider>
       </AuthProvider>
