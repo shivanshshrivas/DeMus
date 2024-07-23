@@ -73,10 +73,15 @@ export const mintTokens = async (address, amount) => {
 
 export const tipArtist = async (fromAddress, toAddress, amount) => {
   try {
+    const networkId = await web3.eth.net.getId();
+    const deployedNetwork = Vibe.networks[networkId];
+    const contract = new web3.eth.Contract(Vibe.abi, deployedNetwork && deployedNetwork.address);
+    const amountToSend = web3.utils.toWei(amount, 'ether');
+
     const transactionParameters = {
       from: fromAddress,
-      to: toAddress,
-      value: web3.utils.toWei(amount, 'ether'),
+      to: contract.options.address,
+      data: contract.methods.transfer(toAddress, amountToSend).encodeABI(),
     };
 
     const txHash = await sendTransaction(transactionParameters);

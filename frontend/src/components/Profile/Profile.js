@@ -75,7 +75,7 @@ function Profile() {
       {walletAddress ? (
         <>
           <Typography variant="body1"><strong>Wallet Address:</strong> {walletAddress}</Typography>
-          <Typography variant="body1"><strong>Token Balance:</strong> {tokenBalance}</Typography>
+          <Typography variant="body1"><strong>$VIBE Tokens Available:</strong> {tokenBalance}</Typography>
           <TextField
             label="Amount to Mint"
             value={mintAmount}

@@ -83,7 +83,7 @@ const Player = () => {
           <TextField
             autoFocus
             margin="dense"
-            label="Tip Amount (ETH)"
+            label="Tip Amount (Vibe Tokens)"
             type="number"
             fullWidth
             value={tipAmount}
