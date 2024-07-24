@@ -1,15 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Button, CircularProgress, Box, Typography } from '@mui/material';
+import { TextField, Button, CircularProgress, Box, Typography, Backdrop, Paper, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { styled } from '@mui/system';
 import { useAuth } from '../../contexts/AuthContext';
 import { useDropzone } from 'react-dropzone';
 import { connectWallet, sendTransaction } from '../../services/wallet';
+
+const StyledButton = styled(Button)({
+  marginTop: '10px',
+  backgroundColor: '#5EB3C4',
+  color: '#000000',
+  fontFamily: 'Archivo Black',
+  '&:hover': {
+    transform: 'scale(1.05)',
+    backgroundColor: 'transparent',
+    color: '#F92C85',
+    boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+    transition: 'all 0.3s ease',
+  },
+  transition: 'all 0.3s ease',
+});
+
+
+const Overlay = styled(Backdrop)({
+  zIndex: 1000,
+  color: '#fff',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  backdropFilter: 'blur(10px)',
+});
+
+const MessageBox = styled(Paper)({
+  padding: '50px',
+  border: '2px dashed #FFEB3B',
+  borderRadius: '15px',
+  backgroundColor: '#FFF9C4',
+  textAlign: 'center',
+  position: 'relative',
+});
+
+const CloseButton = styled(IconButton)({
+  position: 'absolute',
+  top: '10px',
+  right: '10px',
+});
+
+const TimerText = styled(Typography)({
+  color: '#FFEB3B',
+  fontWeight: 'bold',
+  fontSize: '1.5rem',
+  marginTop: '20px',
+});
 
 const UploadForm = () => {
   const { userData } = useAuth();
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [overlayMessage, setOverlayMessage] = useState('');
+  const [cooldown, setCooldown] = useState(false);
+  const [secondsLeft, setSecondsLeft] = useState(30);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const onDrop = (acceptedFiles) => {
     setFile(acceptedFiles[0]);
@@ -37,31 +92,60 @@ const UploadForm = () => {
 
       if (!uploadResponse.data.success) {
         if (uploadResponse.data.message === 'Track already exists') {
-          alert('Similar track exists!');
-          console.log(uploadResponse.data.track);
+          setOverlayMessage('Similar Track Already Exists');
+          setShowOverlay(true);
         } else {
-          alert(uploadResponse.data.message);
+          handleError();
         }
       } else {
-        console.log(uploadResponse.data);
-
-        // Generate the transaction parameters
         const txParams = {
           from: account,
-          to: uploadResponse.data.contractAddress, // The contract address should be provided by the server
-          data: uploadResponse.data.txData, // The data to be sent in the transaction
+          to: uploadResponse.data.contractAddress,
+          data: uploadResponse.data.txData,
         };
 
         const txHash = await sendTransaction(txParams);
         console.log('Transaction sent with hash:', txHash);
-        alert('Track uploaded and registered successfully!');
+        setOverlayMessage('Yay, song uploaded successfully!');
+        setShowOverlay(true);
       }
     } catch (error) {
       console.error('Error uploading track:', error.response || error.message || error);
-      alert('Error uploading track.');
+      handleError();
     }
 
     setLoading(false);
+  };
+
+  const handleError = () => {
+    setOverlayMessage('Oops! An error occurred! Try again in 30 seconds.');
+    setLoading(false);
+    setCooldown(true);
+    setSecondsLeft(30);
+    setShowOverlay(true);
+  };
+
+  useEffect(() => {
+    if (cooldown) {
+      const interval = setInterval(() => {
+        setSecondsLeft((prev) => {
+          if (prev === 1) {
+            clearInterval(interval);
+            setCooldown(false);
+            setOverlayMessage('');
+            setShowOverlay(false);
+            return 30;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [cooldown]);
+
+  const handleCloseOverlay = () => {
+    setShowOverlay(false);
+    setOverlayMessage('');
   };
 
   return (
@@ -80,9 +164,23 @@ const UploadForm = () => {
           <Typography>Drag & drop a music file here, or click to select a file</Typography>
         )}
       </Box>
-      <Button type="submit" variant="contained" color="primary" disabled={loading}>
+      <StyledButton type="submit" variant="contained" fullWidth disabled={loading || cooldown}>
         {loading ? <CircularProgress size={24} /> : 'Upload'}
-      </Button>
+      </StyledButton>
+
+      <Overlay open={showOverlay}>
+        <MessageBox>
+          <CloseButton onClick={handleCloseOverlay}>
+            <CloseIcon />
+          </CloseButton>
+          <Typography variant="h5" style={{ color: '#F92C85', fontFamily: 'Archivo Black' }}>
+            {overlayMessage}
+          </Typography>
+          {overlayMessage === 'Oops! An error occurred! Try again in 30 seconds.' && (
+            <TimerText variant="h6">{secondsLeft} seconds</TimerText>
+          )}
+        </MessageBox>
+      </Overlay>
     </Box>
   );
 };

@@ -77,14 +77,13 @@ export const tipArtist = async (fromAddress, toAddress, amount) => {
     const deployedNetwork = Vibe.networks[networkId];
     const contract = new web3.eth.Contract(Vibe.abi, deployedNetwork && deployedNetwork.address);
     const amountToSend = web3.utils.toWei(amount, 'ether');
-
     const transactionParameters = {
       from: fromAddress,
       to: contract.options.address,
       data: contract.methods.transfer(toAddress, amountToSend).encodeABI(),
     };
-
     const txHash = await sendTransaction(transactionParameters);
+    console.log("Tip aaya");
     return txHash;
   } catch (error) {
     throw new Error('Failed to send tip: ' + error.message);
