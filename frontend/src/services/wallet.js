@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import Vibe from '../build/contracts/Vibe.json';
+import Vibe from '../contracts/Vibe.json';
 
 const web3 = new Web3(Web3.givenProvider || 'https://polygon-amoy.g.alchemy.com/v2/7yGZ0COisSDN-0gXm80e6RQzBJAkjkEk');
 
