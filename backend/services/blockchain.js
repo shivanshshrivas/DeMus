@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const dotenv = require('dotenv');
-const { abi: musicRegistryAbi, networks: musicRegistryNetworks } = require('../build/contracts/RegisterMusic.json');
-const { abi: vibeAbi, networks: vibeNetworks } = require('../build/contracts/Vibe.json');
+const { abi: musicRegistryAbi, networks: musicRegistryNetworks } = require('../contracts/RegisterMusic.json');
+const { abi: vibeAbi, networks: vibeNetworks } = require('../contracts/Vibe.json');
 
 dotenv.config();
 

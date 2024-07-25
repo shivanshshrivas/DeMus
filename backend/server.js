@@ -11,17 +11,11 @@ const upload = multer({ dest: 'uploads/' });
 const app = express();
 const port = process.env.PORT || 5607;
 
-// Configure CORS
-const corsOptions = {
-  origin: 'https://demus-97702bb1205c.herokuapp.com', // Replace with your frontend URL
-  optionsSuccessStatus: 200 // For legacy browser support
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/api/upload', upload.single('file'), async (req, res) => {
+app.post('/api/upload', upload.single('track'), async (req, res) => {
   const { title, artist, account } = req.body;
   const filePath = req.file.path;
 
@@ -31,6 +25,7 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
     const existingTrack = await getTrack(fingerprint);
     if (existingTrack) {
       console.log('Track already exists:', existingTrack);
+      await fs.remove(filePath);
       return res.json({ success: false, message: 'Track already exists', track: existingTrack });
     }
 
