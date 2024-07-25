@@ -1,7 +1,6 @@
 {
-    "root": "build/",
-    "routes": {
-      "/**": "index.html"
-    }
+  "root": "frontend/build/",
+  "routes": {
+    "/**": "index.html"
   }
-  
+}
