@@ -6,10 +6,17 @@ Decentralized Music Application
 ### Go to repo: 
 
 `cd DeMus`
+
 `npm install`
+
 `cd frontend`
+
 `npm install`
+
 `cd..`
+
+`npm run build`
+
 `npm start`
 
 
