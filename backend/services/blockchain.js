@@ -16,7 +16,7 @@ const vibe = new web3.eth.Contract(vibeAbi, vibeAddress);
 
 const prepareTransactionData = async (title, artist, ipfsHash, fingerprint, account) => {
   try {
-    const txData = musicRegistry.methods.registerTrack(title, artist, ipfsHash, fingerprint, account).encodeABI();
+    const txData = musicRegistry.methods.registerTrack(title, artist, ipfsHash, fingerprint).encodeABI();
     return { txData, contractAddress: musicRegistryAddress };
   } catch (error) {
     console.error('Error preparing transaction data:', error);

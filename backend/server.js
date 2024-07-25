@@ -25,6 +25,7 @@ app.post('/api/upload', upload.single('track'), async (req, res) => { // Ensure 
     const existingTrack = await getTrack(fingerprint);
     if (existingTrack) {
       console.log('Track already exists:', existingTrack);
+      await fs.remove(filePath);
       return res.json({ success: false, message: 'Track already exists', track: existingTrack });
     }
 
