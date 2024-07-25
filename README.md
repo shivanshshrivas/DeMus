@@ -11,7 +11,7 @@ Decentralized Music Application
 
 `cd frontend`
 
-`npm install`
+`npm install --legacy-peer-deps`
 
 `cd..`
 
