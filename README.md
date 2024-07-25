@@ -3,6 +3,8 @@ Decentralized Music Application
 
 ## To run, clone the repo.
 
+Make sure you have node.js
+
 ### Go to repo: 
 
 `cd DeMus`
