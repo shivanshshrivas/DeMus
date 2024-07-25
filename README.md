@@ -71,6 +71,16 @@ That is very subjective and time-dependent. Try again maybe in 30 mins when the 
 - Select Polygon Amoy PoS testnet and paste your wallet address.
 - Sign the transation and you should have MATIC coins now.
 
+### Connecting to Polygon Amoy Testnet on MetaMask
+- Go to MetaMask > Settings > Networks > Add a network > Add a network manually
+- Use the information to add the network
+- Network Name: POLYGON AMOY TESTNET
+- New RPC URL: https://rpc-amoy.polygon.technology/
+- Chain ID: 80002
+- Currency Symbol: MATIC
+- Block Explorer URL: https://www.oklink.com/amoy
+- If it says something like 'Make sure you have the correct RPC link', check the link and if it's correct, change your wifi because it might be blocking crypto wallet. 
+
 ### Not Enough Tokens and don't want to mint
 Upload a song and send me a message, I'll tip you some tokens lol
 
