@@ -7,18 +7,15 @@ const { prepareTransactionData, getTrack, getAllTracks, searchTracks, tipArtist 
 const { uploadToIPFS } = require('./services/uploadToIPFS');
 const generateFingerprint = require('./services/generateFingerprint');
 
-const app = express();
 const upload = multer({ dest: 'uploads/' });
+const app = express();
+const port = process.env.PORT || 5607;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// const index = {
-//   titleToFingerprints: {},
-//   artistToFingerprints: {}
-// };
-
-app.post('/api/upload', upload.single('file'), async (req, res) => {
+app.post('/api/upload', upload.single('track'), async (req, res) => { // Ensure 'track' is used here
   const { title, artist, account } = req.body;
   const filePath = req.file.path;
 
@@ -36,15 +33,6 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
 
     const { txData, contractAddress } = await prepareTransactionData(title, artist, ipfsHash, fingerprint, account);
     console.log('Transaction data prepared:', txData);
-
-    // if (!index.titleToFingerprints[title]) {
-    //   index.titleToFingerprints[title] = [];
-    // }
-    // if (!index.artistToFingerprints[artist]) {
-    //   index.artistToFingerprints[artist] = [];
-    // }
-    // index.titleToFingerprints[title].push(fingerprint);
-    // index.artistToFingerprints[artist].push(fingerprint);
 
     res.json({ success: true, txData, contractAddress });
     await fs.remove(filePath);
@@ -106,10 +94,9 @@ app.post('/api/tip', async (req, res) => {
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../frontend/build/index.html'));
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

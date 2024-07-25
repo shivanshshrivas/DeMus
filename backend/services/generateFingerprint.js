@@ -1,9 +1,12 @@
 const { exec } = require('child_process');
 const crypto = require('crypto');
+const path = require('path');
+
+const fpcalcPath = path.resolve(__dirname, '../bin/chromaprint/fpcalc'); // Ensure this is the Linux binary
 
 function generateFingerprint(filePath) {
   return new Promise((resolve, reject) => {
-    exec(`fpcalc -json ${filePath}`, (error, stdout, stderr) => {
+    exec(`${fpcalcPath} -json ${filePath}`, (error, stdout, stderr) => {
       if (error) {
         reject(`Error: ${stderr}`);
         return;

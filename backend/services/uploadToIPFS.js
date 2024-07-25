@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const FormData = require('form-data');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: '../smart-contracts/.env' });
+dotenv.config();
 
 const PINATA_API_KEY = process.env.PINATA_API_KEY;
 const PINATA_SECRET_API_KEY = process.env.PINATA_SECRET_API_KEY;

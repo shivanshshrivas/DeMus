@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://demus-backend-c00643679c42.herokuapp.com/api';
 
 export const uploadTrack = async (formData) => {
   try {

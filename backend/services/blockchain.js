@@ -1,14 +1,13 @@
-const {Web3} = require('web3');
+const Web3 = require('web3');
 const dotenv = require('dotenv');
-const { abi: musicRegistryAbi, networks: musicRegistryNetworks } = require('../../smart-contracts/build/contracts/RegisterMusic.json');
-const { abi: vibeAbi, networks: vibeNetworks } = require('../../smart-contracts/build/contracts/Vibe.json');
+const { abi: musicRegistryAbi, networks: musicRegistryNetworks } = require('../build/contracts/RegisterMusic.json');
+const { abi: vibeAbi, networks: vibeNetworks } = require('../build/contracts/Vibe.json');
 
-dotenv.config({ path: '../../smart-contracts/.env' });
+dotenv.config();
 
-const ALCHEMY_API_URL = `https://polygon-amoy.g.alchemy.com/v2/7yGZ0COisSDN-0gXm80e6RQzBJAkjkEk`;
-const web3 = new Web3(new Web3.providers.HttpProvider(ALCHEMY_API_URL));
+const web3 = new Web3(new Web3.providers.HttpProvider(`https://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_URL_ID}`));
 
-const networkId = '80002'; // Assuming you're using Polygon Mumbai Testnet
+const networkId = '80002';
 const musicRegistryAddress = musicRegistryNetworks[networkId].address;
 const vibeAddress = vibeNetworks[networkId].address;
 

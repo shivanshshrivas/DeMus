@@ -75,21 +75,21 @@ const UploadForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-
+  
     try {
       const formData = new FormData();
       const account = await connectWallet();
-      formData.append('file', file);
+      formData.append('track', file); // Change 'file' to 'track'
       formData.append('title', title);
       formData.append('artist', userData.username);
       formData.append('account', account);
-
-      const uploadResponse = await axios.post('http://localhost:5000/api/upload', formData, {
+  
+      const uploadResponse = await axios.post('https://demus-backend-c00643679c42.herokuapp.com/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+  
       if (!uploadResponse.data.success) {
         if (uploadResponse.data.message === 'Track already exists') {
           setOverlayMessage('Similar Track Already Exists');
@@ -103,7 +103,7 @@ const UploadForm = () => {
           to: uploadResponse.data.contractAddress,
           data: uploadResponse.data.txData,
         };
-
+  
         const txHash = await sendTransaction(txParams);
         console.log('Transaction sent with hash:', txHash);
         setOverlayMessage('Yay, song uploaded successfully!');
@@ -113,7 +113,7 @@ const UploadForm = () => {
       console.error('Error uploading track:', error.response || error.message || error);
       handleError();
     }
-
+  
     setLoading(false);
   };
 
