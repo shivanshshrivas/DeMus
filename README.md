@@ -4,10 +4,10 @@ Decentralized Music Application
 To run, clone the repo.
 
 Go to repo
-'''cd DeMus'''
+###cd DeMus
 
 Install dependencies
-'''npm install'''
+###npm install
 
 Run
-'''npm start'''
+###npm start
