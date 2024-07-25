@@ -74,6 +74,6 @@ That is very subjective and time-dependent. Try again maybe in 30 mins when the 
 ### Not Enough Tokens and don't want to mint
 Upload a song and send me a message, I'll tip you some tokens lol
 
-#Damn you reached the end of the document, you must a super-fan. Enjoy the app and I'm open to feedback.
+# Damn you reached the end of the document, you must a super-fan. Enjoy the app and I'm open to feedback.
 
 
