@@ -11,7 +11,8 @@
         "format": "cd frontend && prettier --write 'src/**/*.{js,jsx,css}'",
         "compile-contracts": "cd smart-contracts && truffle compile",
         "migrate-contracts": "cd smart-contracts && truffle migrate",
-        "test-contracts": "cd smart-contracts && truffle test"
+        "test-contracts": "cd smart-contracts && truffle test",
+        "heroku-postbuild": "cd frontend && npm install && npm run build"
     },
     "keywords": [],
     "author": "Shivansh Shrivas",
@@ -36,5 +37,9 @@
         "multer": "^1.4.5-lts.1",
         "uint8arrays": "^5.1.0",
         "web3": "^4.11.0"
+    },
+    "engines": {
+        "node": ">=14.0.0",
+        "npm": ">=6.0.0"
     }
 }
