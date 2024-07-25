@@ -26,7 +26,7 @@ For the front-end I've used ReactJS with MaterialUI, trying to keep it simple an
 For backend I've used NodeJS and ExpressJS for handling server-side operations and defining API endpoints. I've used CORS to send mutli-part data to blockchain.js, and Multer to save files temporarily in uploads for fingerprint generation.
 
 ### Fingerprint Generation
-For fingerprint generation, I've used a C library called chromaprint (https://github.com/acousticid/chromaprint) which implements a custom algorithm for extracting fingerprints from any audio source. I'm using the linux version of this library because my backend runs on a linux based OS but for testing and local running I used windows version (Download - https://acousticid.org/chromaprint).
+For fingerprint generation, I've used a C library called chromaprint (https://github.com/acoustid/chromaprint) which implements a custom algorithm for extracting fingerprints from any audio source. I'm using the linux version of this library because my backend runs on a linux based OS but for testing and local running I used windows version [(Download - https://acoustid.org/chromaprint).
 
 ### Blockchain
 For smart contracts, I have two primary smart contracts, Vibe.sol which was developed using OpenZeppelin. It creates $VIBE tokens for the platform set at default 10,000. And second one is RegisterMusic.sol which has primary functions:
