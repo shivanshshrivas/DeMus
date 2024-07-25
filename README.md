@@ -36,7 +36,7 @@ For smart contracts, I have two primary smart contracts, Vibe.sol which was deve
 - getAllTracks: gets all the tracks on chain (for Discover page)
 - searchTracks: searches track by query given (by title or artist)
 
-All the smart-contracts and information is deployed on the chain using Alchemy API.
+All the smart contracts were compiled using Truffle and were deployed on the chain using Alchemy API. The registring music and pulling imformation from chain also is done through Alchemy API.
 
 File storage is handled by Pinata and I'm using Metamask wallet browser extension for transactions. Metamask wallet should also be connected to Polygon Amoy Testnet.
 
