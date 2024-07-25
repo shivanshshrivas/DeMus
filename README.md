@@ -22,3 +22,5 @@ Make sure you have node.js
 `npm start`
 
 
+It should start locally, go to your browser, make sure you have metamask, signup or login and enjoy.
+
