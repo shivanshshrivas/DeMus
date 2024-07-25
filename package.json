@@ -12,7 +12,7 @@
         "compile-contracts": "cd smart-contracts && truffle compile",
         "migrate-contracts": "cd smart-contracts && truffle migrate",
         "test-contracts": "cd smart-contracts && truffle test",
-        "heroku-postbuild": "cd frontend && npm install && npm run build"
+        "heroku-postbuild": "cd frontend && npm install --legacy-peer-deps && npm run build"
     },
     "keywords": [],
     "author": "Shivansh Shrivas",
