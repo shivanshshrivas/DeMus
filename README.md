@@ -36,7 +36,44 @@ For smart contracts, I have two primary smart contracts, Vibe.sol which was deve
 - getAllTracks: gets all the tracks on chain (for Discover page)
 - searchTracks: searches track by query given (by title or artist)
 
-File storage is handled by Pinata
+All the smart-contracts and information is deployed on the chain using Alchemy API.
 
-Using Metamask wallet and Polygon Amoy Test
+File storage is handled by Pinata and I'm using Metamask wallet browser extension for transactions. Metamask wallet should also be connected to Polygon Amoy Testnet.
+
+### How File Upload Works
+When a user uploads a file with title, the file is stored temporarily in uploads folder which is then picked up by generateFingerprint.js along with with title, artist (your username) and wallet address which uses Chromaprint to generate a fingerprint which is then hashed using SHA-256 algorithm to convert it into a byte32 string. That string is then checked if it exists on the chain or not. If it is, the message is displayed that a similar track exists and the file is removed from folder. If not, the file goes to uploadToIPFS.js which uploads the file to Pinata using API and Secret API key and returns the ipfsHash. Then all the components are registered on chain using RegisterMusic.json abis and network details using Alchemy API. 
+
+Getting all tracks, searching for a track and getting track using fingerprint then are pretty straightforward.
+
+## Debugging
+### JSON-RPC error - The most common one 
+The most it should take is maybe restarting the website but just in case :)
+- Check if you have enough MATIC coins for transaction
+- Check if you are connected to the correct network
+- Check if you are connected to a wifi which allows crypto transaction
+- Check if you have any previous pending transactions
+- Give the website 30 seconds to cool down and redo the transition (There's a 30 second cool down in the website, that should be good)
+- Refresh the website
+- Logout and re-login
+- Restart the website
+- Close the browser and restart the website
+- Change the browser
+
+### Audio keeps playing 
+This happens when you keep the audio playing and switch tabs. PS - There's no way to turn that audio off, you'll have to restart the website
+
+### Too much gas fees while minting tokens
+That is very subjective and time-dependent. Try again maybe in 30 mins when the gas-fees is low
+
+### Not enough Matic Coins
+- Connect and authenticate your wallet and open your discord on web.
+- In a new tab, open https://faucet.polygon.technology and connect Discord.
+- Select Polygon Amoy PoS testnet and paste your wallet address.
+- Sign the transation and you should have MATIC coins now.
+
+### Not Enough Tokens and don't want to mint
+Upload a song and send me a message, I'll tip you some tokens lol
+
+#Damn you reached the end of the document, you must a super-fan. Enjoy the app and I'm open to feedback.
+
 
